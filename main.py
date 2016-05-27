@@ -26,13 +26,11 @@ for agent in agentList:
             aliveCounter += 1
     agentData = dict
     if agent.get("isAlive") == False and aliveCounter == 3:
-        agentData = {"coordX": agent.get("coordX"), "coordY": agent.get("coordY"), "isAlive": agent.get("isAlive"),
+        agentData = {"coordX": agent.get("coordX"), "coordY": agent.get("coordY"), "isAlive": False,
                      "newIsAlive": True}
-        agent['isAlive'] = True
     elif agent.get("isAlive") == True and (aliveCounter == 2 or aliveCounter == 3):
-        agentData = {"coordX": agent.get("coordX"), "coordY": agent.get("coordY"), "isAlive": agent.get("isAlive"),
+        agentData = {"coordX": agent.get("coordX"), "coordY": agent.get("coordY"), "isAlive": True,
                      "newIsAlive": False}
-        agent['isAlive'] = False
     else:
         agentData = {"coordX": agent.get("coordX"), "coordY": agent.get("coordY"), "isAlive": agent.get("isAlive"),
                      "newIsAlive": agent.get("isAlive")}
