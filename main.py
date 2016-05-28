@@ -17,9 +17,10 @@ for x in range(0, 5):
         agentList.append(values)
         r = requests.post(register_url, data=json.dumps(values), headers=headers)
 
-
 for agent in agentList:
-    r = requests.post(process_url, data=json.dumps({"coordX": agent.get("coordX"), "coordY": agent.get("coordY"), "isAlive": agent.get("isAlive")}), headers=headers)
+    r = requests.post(process_url, data=json.dumps(
+        {"coordX": agent.get("coordX"), "coordY": agent.get("coordY"), "isAlive": agent.get("isAlive")}),
+                      headers=headers)
     aliveCounter = 0
     for receivedAgent in json.loads(r.text).get("agentMessage"):
         if receivedAgent.get("isAlive"):
@@ -29,6 +30,9 @@ for agent in agentList:
         agentData = {"coordX": agent.get("coordX"), "coordY": agent.get("coordY"), "isAlive": False,
                      "newIsAlive": True}
     elif agent.get("isAlive") == True and (aliveCounter == 2 or aliveCounter == 3):
+        agentData = {"coordX": agent.get("coordX"), "coordY": agent.get("coordY"), "isAlive": True,
+                     "newIsAlive": True}
+    elif agent.get("isAlive") == True and not (aliveCounter == 2 or aliveCounter == 3):
         agentData = {"coordX": agent.get("coordX"), "coordY": agent.get("coordY"), "isAlive": True,
                      "newIsAlive": False}
     else:
